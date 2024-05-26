@@ -12,6 +12,15 @@ repos:
         stages: [commit]
   - repo: local
     hooks:
+    - id: pytest
+      name: pytest
+      language: system
+      entry: pytest -vvv
+      always_run: true
+      pass_filenames: false 
+      stages: [commit]
+  - repo: local
+    hooks:
       - id: requirements
         name: requirements
         entry: bash -c 'pip freeze > requirements.txt; git add requirements.txt'
