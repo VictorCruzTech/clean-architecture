@@ -18,6 +18,20 @@ class User(Base):
     def __repr__(self):
         return f"User [name={self.name}]"
 
+    def __eq__(self, other):
+        return (
+            True
+            if all(
+                [
+                    self.id == other.id,
+                    self.name == other.name,
+                    self.password == other.password,
+                    self.cpf == other.cpf,
+                ]
+            )
+            else False
+        )
+
 
 test_table = Table(
     "test_table",

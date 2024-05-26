@@ -1,8 +1,12 @@
+import logging
 import random
 
 from sqlalchemy import delete
 from src.infra.config.db_config import DBConnectionHandler
 from src.infra.entities.user import User
+
+
+logger = logging.getLogger(__name__)
 
 
 def delete_data_from_user_table(user_id):
@@ -11,7 +15,7 @@ def delete_data_from_user_table(user_id):
         res = db_connection.session.execute(stmt)
         db_connection.session.commit()
 
-        print(f"Rows affected: {res.rowcount}")
+        logger.info(f"Rows affected: {res.rowcount}")
 
 
 def generate_cpf():
