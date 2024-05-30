@@ -30,7 +30,7 @@ def test_insert_user(db_session):
     delete_data_from_user_table(new_user.id)
 
 
-def test_select_user_by_id(db_session):
+def test_select_user(db_session):
     user_id = random.randint(1, 50)
     name = faker.name()
     password = faker.word()
