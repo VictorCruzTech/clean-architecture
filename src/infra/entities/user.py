@@ -1,6 +1,7 @@
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, Table, Float
 from sqlalchemy.orm import relationship
 from src.infra.config import Base
+from src.infra.config.db_base import Metadata
 
 
 class User(Base):
@@ -16,3 +17,27 @@ class User(Base):
 
     def __repr__(self):
         return f"User [name={self.name}]"
+
+    def __eq__(self, other):
+        return (
+            True
+            if all(
+                [
+                    self.id == other.id,
+                    self.name == other.name,
+                    self.password == other.password,
+                    self.cpf == other.cpf,
+                ]
+            )
+            else False
+        )
+
+
+test_table = Table(
+    "test_table",
+    Metadata,
+    Column("id", Integer, primary_key=True),
+    Column("color", String(length=100), nullable=False),
+    Column("year", Integer, unique=True, nullable=False),
+    Column("value", Float(precision=2), nullable=False),
+)

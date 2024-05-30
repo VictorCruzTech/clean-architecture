@@ -4,3 +4,7 @@ install:
 
 format:
 	black .
+
+
+test:
+	pytest -vvv
