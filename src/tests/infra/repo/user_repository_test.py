@@ -18,7 +18,6 @@ def test_insert_user(db_session):
     cpf = generate_cpf()
 
     new_user = user_repo.insert_user(name=name, password=password, cpf=cpf)
-    print(new_user)
 
     stmt = select(User.name, User.password, User.cpf).where(User.id == new_user.id)
     result = db_session.execute(statement=stmt).one()
