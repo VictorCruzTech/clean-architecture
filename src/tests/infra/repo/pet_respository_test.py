@@ -34,7 +34,7 @@ def test_insert_pet(db_session):
     delete_data_from_pet_table(new_pet.id)
 
 
-def test_select_user(db_session):
+def test_select_pet(db_session):
     pet_id = random.randint(1, 50)
     user_id = random.randint(1, 50)
     age = random.randint(1, 50)
