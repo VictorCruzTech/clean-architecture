@@ -19,6 +19,15 @@ def delete_data_from_user_table(user_id):
         logger.info(f"Rows affected: {res.rowcount}")
 
 
+def delete_data_from_user_table_by_cpf(cpf):
+    with DBConnectionHandler() as db_connection:
+        stmt = delete(User).where(User.cpf == cpf)
+        res = db_connection.session.execute(stmt)
+        db_connection.session.commit()
+
+        logger.info(f"Rows affected: {res.rowcount}")
+
+
 def delete_data_from_pet_table(pet_id):
     with DBConnectionHandler() as db_connection:
         stmt = delete(Pet).where(Pet.id == pet_id)
