@@ -5,7 +5,7 @@ from src.domain.use_cases import FindUserInterface
 
 
 class FindUserImpl(FindUserInterface):
-    """Class to define use case Find User"""
+    """Class to define use case FindUser"""
 
     def __init__(self, user_repository: Type[UserRepositoryInterface]):
         self.user_repository = user_repository
