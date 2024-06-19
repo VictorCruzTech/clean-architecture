@@ -2,21 +2,24 @@ from faker import Faker
 from src.data.register_user.register import RegisterUserImpl
 from src.infra.repo.user_repository import UserRepository
 from src.domain.models import User
-from src.tests.infra.repo.factories import delete_data_from_user_table_by_cpf
+from src.tests.infra.repo.factories import (
+    delete_data_from_user_table_by_cpf,
+    generate_cpf,
+)
 
 faker = Faker()
-repository = UserRepository()
+user_repo = UserRepository()
 
 
 def test_register_success():
-    register_user = RegisterUserImpl(repository)
-    name = "Victor Cruz"
-    password = "Senha123"
-    cpf = "10020030088"
+    register_user = RegisterUserImpl(user_repo)
+    name = faker.name()
+    password = faker.password()
+    cpf = generate_cpf()
 
     expected_response = {
         "Success": True,
-        "Data": User(id=1, name="Victor Cruz", password="Senha123", cpf="10020030088"),
+        "Data": User(id=1, name=name, password=password, cpf=cpf),
     }
     response = register_user.register(name, password, cpf)
 
@@ -26,8 +29,8 @@ def test_register_success():
 
 
 def test_register_fail():
-    register_user = RegisterUserImpl(repository)
-    name = "Victor Cruz"
+    register_user = RegisterUserImpl(user_repo)
+    name = faker.name()
     password = 12345
     cpf = "10020030088"
 
