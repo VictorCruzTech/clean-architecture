@@ -32,7 +32,7 @@ def test_insert_user(db_session):
 def test_select_user(db_session):
     user_id = random.randint(1, 50)
     name = faker.name()
-    password = faker.word()
+    password = faker.password()
     cpf = generate_cpf()
     data = UserModel(id=user_id, name=name, password=password, cpf=cpf)
 
