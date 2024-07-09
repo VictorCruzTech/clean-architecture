@@ -6,7 +6,7 @@ from src.infra.entities.pet import AnimalTypes, Pet
 from src.infra.entities import Pet as PetModel
 from src.infra.repo.pet_repository import PetRepository
 from src.infra.repo.user_repository import UserRepository
-from src.tests.infra.repo.factories import delete_data_from_pet_table
+from src.tests.infra.repo.factories import clear_db_data
 
 
 user_repo = UserRepository()
@@ -31,7 +31,7 @@ def test_insert_pet(db_session):
     assert new_pet.age == result.age
     assert new_pet.user_id == result.user_id
 
-    delete_data_from_pet_table(new_pet.id)
+    clear_db_data()
 
 
 def test_select_pet(db_session):
@@ -56,4 +56,4 @@ def test_select_pet(db_session):
     assert data in query_pet2[0]
     assert data in query_pet3
 
-    delete_data_from_pet_table(pet_id)
+    clear_db_data()

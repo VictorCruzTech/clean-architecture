@@ -2,10 +2,7 @@ from faker import Faker
 from src.data.register_user.register import RegisterUserImpl
 from src.infra.repo.user_repository import UserRepository
 from src.domain.models import User
-from src.tests.infra.repo.factories import (
-    delete_data_from_user_table_by_cpf,
-    generate_cpf,
-)
+from src.tests.infra.repo.factories import clear_db_data, generate_cpf
 
 faker = Faker()
 user_repo = UserRepository()
@@ -25,7 +22,7 @@ def test_register_success():
 
     assert response == expected_response
 
-    delete_data_from_user_table_by_cpf(cpf)
+    clear_db_data()
 
 
 def test_register_fail():
@@ -39,4 +36,4 @@ def test_register_fail():
 
     assert response == expected_response
 
-    delete_data_from_user_table_by_cpf(cpf)
+    clear_db_data()

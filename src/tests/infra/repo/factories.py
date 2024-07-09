@@ -10,31 +10,21 @@ from src.infra.entities.user import User
 logger = logging.getLogger(__name__)
 
 
-def delete_data_from_user_table(user_id):
+def clear_db_data():
     with DBConnectionHandler() as db_connection:
-        stmt = delete(User).where(User.id == user_id)
+        print("LIMPANDO A TABELA PET...")
+        stmt = delete(Pet).where(Pet.id >= 1)
         res = db_connection.session.execute(stmt)
         db_connection.session.commit()
+        print("TABELA PET LIMPA :)")
+        print(f"Rows affected: {res.rowcount}\n\n")
 
-        logger.info(f"Rows affected: {res.rowcount}")
-
-
-def delete_data_from_user_table_by_cpf(cpf):
-    with DBConnectionHandler() as db_connection:
-        stmt = delete(User).where(User.cpf == cpf)
+        print("LIMPANDO A TABELA USER...")
+        stmt = delete(User).where(User.id >= 1)
         res = db_connection.session.execute(stmt)
         db_connection.session.commit()
-
-        logger.info(f"Rows affected: {res.rowcount}")
-
-
-def delete_data_from_pet_table(pet_id):
-    with DBConnectionHandler() as db_connection:
-        stmt = delete(Pet).where(Pet.id == pet_id)
-        res = db_connection.session.execute(stmt)
-        db_connection.session.commit()
-
-        logger.info(f"Rows affected: {res.rowcount}")
+        print("TABELA USER LIMPA :)")
+        print(f"Rows affected: {res.rowcount}\n\n")
 
 
 def generate_cpf():

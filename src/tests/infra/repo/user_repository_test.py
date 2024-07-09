@@ -3,7 +3,7 @@ import random
 from faker import Faker
 from src.infra.entities.user import User
 from src.infra.repo.user_repository import UserRepository
-from src.tests.infra.repo.factories import delete_data_from_user_table, generate_cpf
+from src.tests.infra.repo.factories import clear_db_data, generate_cpf
 from src.infra.entities import User as UserModel
 from sqlalchemy import select, insert
 
@@ -26,7 +26,7 @@ def test_insert_user(db_session):
     assert new_user.password == result.password
     assert new_user.cpf == result.cpf
 
-    delete_data_from_user_table(new_user.id)
+    clear_db_data()
 
 
 def test_select_user(db_session):
@@ -48,4 +48,4 @@ def test_select_user(db_session):
     assert data in query_user2
     assert data in query_user3
 
-    delete_data_from_user_table(user_id)
+    clear_db_data()

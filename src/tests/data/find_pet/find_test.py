@@ -6,7 +6,7 @@ from faker import Faker
 from src.data.find_pet.find import FindPetImpl
 from src.infra.entities.pet import AnimalTypes
 from src.infra.repo.pet_repository import PetRepository
-from src.tests.infra.repo.factories import delete_data_from_pet_table
+from src.tests.infra.repo.factories import clear_db_data
 
 
 faker = Faker()
@@ -26,7 +26,7 @@ def test_find_by_id():
     assert response["Success"] is True
     assert response["Data"][0].name == name
 
-    delete_data_from_pet_table(new_pet.id)
+    clear_db_data()
 
 
 def test_find_by_user_id():
@@ -42,7 +42,7 @@ def test_find_by_user_id():
     assert response["Success"] is True
     assert response["Data"][0][0].name == name
 
-    delete_data_from_pet_table(new_pet.id)
+    clear_db_data()
 
 
 def test_find_by_pet_id_and_user_id():
@@ -60,7 +60,7 @@ def test_find_by_pet_id_and_user_id():
     assert response["Success"] is True
     assert response["Data"][0].name == name
 
-    delete_data_from_pet_table(new_pet.id)
+    clear_db_data()
 
 
 def test_find_by_non_existent_pet_id():
@@ -69,7 +69,7 @@ def test_find_by_non_existent_pet_id():
     age = random.randint(1, 50)
     find_pet = FindPetImpl(pet_repo)
 
-    new_pet = pet_repo.insert_pet(name=name, specie=specie, age=age, user_id=10)
+    pet_repo.insert_pet(name=name, specie=specie, age=age, user_id=10)
 
     with pytest.raises(NoResultFound):
         response = find_pet.by_pet_id(pet_id=500)
@@ -77,4 +77,4 @@ def test_find_by_non_existent_pet_id():
         assert response["Success"] is False
         assert response["Data"][0] is None
 
-    delete_data_from_pet_table(new_pet.id)
+    clear_db_data()

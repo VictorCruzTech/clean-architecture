@@ -4,7 +4,6 @@ from src.data.interfaces import PetRepositoryInterface
 from src.domain.models import Pet
 from src.domain.models import User
 from src.domain.use_cases import RegisterPetInterface
-from src.infra.entities.pet import AnimalTypes
 
 
 class RegisterPetImpl(RegisterPetInterface):
@@ -33,7 +32,7 @@ class RegisterPetImpl(RegisterPetInterface):
         validate_entry = all(
             [
                 isinstance(name, str),
-                isinstance(specie, AnimalTypes),
+                isinstance(specie, str),
                 isinstance(user_information, dict),
                 isinstance(age, int),
             ]

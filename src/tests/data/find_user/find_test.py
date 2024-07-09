@@ -5,10 +5,7 @@ from faker import Faker
 from src.data.find_user.find import FindUserImpl
 from src.data.register_user.register import RegisterUserImpl
 from src.infra.repo.user_repository import UserRepository
-from src.tests.infra.repo.factories import (
-    delete_data_from_user_table_by_cpf,
-    generate_cpf,
-)
+from src.tests.infra.repo.factories import clear_db_data, generate_cpf
 
 
 faker = Faker()
@@ -29,7 +26,7 @@ def test_find_by_id():
     assert response["Success"] is True
     assert response["Data"][0].name == name
 
-    delete_data_from_user_table_by_cpf(cpf)
+    clear_db_data()
 
 
 def test_find_by_name():
@@ -46,7 +43,7 @@ def test_find_by_name():
     assert response["Success"] is True
     assert response["Data"][0].name == name
 
-    delete_data_from_user_table_by_cpf(cpf)
+    clear_db_data()
 
 
 def test_find_by_id_and_name():
@@ -63,7 +60,7 @@ def test_find_by_id_and_name():
     assert response["Success"] is True
     assert response["Data"][0].name == name
 
-    delete_data_from_user_table_by_cpf(cpf)
+    clear_db_data()
 
 
 def test_find_with_non_existent_name():
@@ -81,4 +78,4 @@ def test_find_with_non_existent_name():
         assert response["Success"] is False
         assert response["Data"][0] is None
 
-    delete_data_from_user_table_by_cpf(cpf)
+    clear_db_data()

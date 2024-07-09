@@ -8,8 +8,7 @@ from src.infra.entities.pet import AnimalTypes
 from src.infra.repo.user_repository import UserRepository
 from src.infra.repo.pet_repository import PetRepository
 from src.tests.infra.repo.factories import (
-    delete_data_from_pet_table,
-    delete_data_from_user_table_by_cpf,
+    clear_db_data,
     generate_cpf,
 )
 
@@ -24,7 +23,7 @@ def test_register_success():
     register_pet = RegisterPetImpl(pet_repo, find_user)
     register_user = RegisterUserImpl(user_repo)
     name = faker.name()
-    specie = AnimalTypes.TURTLE
+    specie = AnimalTypes.TURTLE.value
     password = faker.password()
     cpf = generate_cpf()
     age = random.randint(1, 100)
@@ -41,7 +40,7 @@ def test_register_success():
         "Data": Pet(
             id=1,
             name=name,
-            specie=specie.value,
+            specie=specie,
             age=age,
             user_id=user_information["user_id"],
         ),
@@ -53,5 +52,4 @@ def test_register_success():
 
     assert response == expected_response
 
-    delete_data_from_user_table_by_cpf(cpf)
-    delete_data_from_pet_table(response["Data"].id)
+    clear_db_data()
