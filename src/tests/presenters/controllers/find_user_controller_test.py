@@ -16,7 +16,7 @@ def test_handle_with_user_id_and_user_name(create_user):
 
     find_user = FindUserController(find_user_impl)
 
-    response = find_user.handle(request)
+    response = find_user.route(request)
     print(response)
 
     assert response.status_code == 200
@@ -30,7 +30,7 @@ def test_handle_no_query_param(create_user):
 
     find_user = FindUserController(find_user_impl)
 
-    response = find_user.handle(request)
+    response = find_user.route(request)
     print(response)
 
     assert response.status_code == 400
@@ -44,7 +44,7 @@ def test_handle_query_without_expected_keys(create_user):
 
     find_user = FindUserController(find_user_impl)
 
-    response = find_user.handle(request)
+    response = find_user.route(request)
     print(response)
 
     assert response.status_code == 422
